@@ -1,0 +1,8 @@
+---
+# defaults file for awsresource
+ec2_name: "ansible-ec2-instance"
+ec2_image_id: "ami-020cba7c55df1f615"
+ec2_instance_type: "t2.micro"
+ec2_region: "us-east-1"
+#key_name: "2025nv.pem"
+ec2_security_groups: "default"
