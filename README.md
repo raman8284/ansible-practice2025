@@ -19,10 +19,13 @@ Step1:-Use a virtual environment (recommended).
 >>This is the safest approach for development.
 
 >>Create a new virtual environment:
+
         ** $python3 -m venv ~/myenv
+        
 Step2:-Activate it
 
         ** $source ~/myenv/bin/activate
+        
 Step3:-Upgrade pip inside the venv:
         ** $pip install --upgrade pip
         
@@ -85,4 +88,5 @@ Ansible-vault Life Cycle:-
      ** ansible-playbook site.yml --vault-password-file ~/ansible/vault.pass
 
     
+
 
