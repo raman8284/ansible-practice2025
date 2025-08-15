@@ -46,10 +46,13 @@ Step6:- Install Amazon Collection
         
             > $ansible-galaxy collection list | grep amazon.aws
 =====================================================================
+
 Ansible-vault Creation:-
 ----------------------
+
 What is Ansible-vault:-
 *********************
+
 >Ansible Vault uses AES-256 symmetric encryption (default) to protect sensitive data.
 
 >Symmetric encryption → same password is used for both encryption and decryption.
@@ -63,35 +66,47 @@ What is Ansible-vault:-
 
 Ansible-vault Life Cycle:-
 -----------------------
+
 1>Create New Encrypted File.
+
     ** $ansible-vault create group_vars/all/pass.yml
     
 2>Edit an Encrypted File.
+
     ** $ansible-vault edit group_vars/all/pass.yml
 
 3>View Contents.
+
     ** $ansible-vault view group_vars/all/pass.yml
 
 4>Encrypt an Existing Plain-Text File.
+
     ** $ansible-vault encrypt secrets.yml
 
 5>Decrypt a File Permanently.
+
     ** $ansible-vault decrypt secrets.yml
 
 6>Change Vault Password.
+
     ** $ansible-vault rekey group_vars/all/pass.yml
 
 7>Encrypt a Single String (Inline).
+
     ** $ansible-vault encrypt_string 'SuperSecretKey' --name 'ec2_secret_key'
 
 8>Run Playbooks with Vault.
+
  **Prompt for Password**
+ 
     ** $ansible-playbook site.yml --ask-vault-pass
 
 9>Use a Vault Password File (automation).
+
      ** ansible-playbook site.yml --vault-password-file ~/ansible/vault.pass
 
     
+
 
 
 
