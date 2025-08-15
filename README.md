@@ -27,17 +27,21 @@ Step2:-Activate it
         ** $source ~/myenv/bin/activate
         
 Step3:-Upgrade pip inside the venv:
+
         ** $pip install --upgrade pip
         
 Step4:-Install boto3
+
         ** $pip install boto3
         
 Step5:-When done, deactivate:
 
 Note:-when work is done deactivate.Before you don't deactivate
+
         ** $deactivate
 
 Step6:- Install Amazon Collection
+
         ** $ansible-galaxy collection install amazon.aws --force
         
             > $ansible-galaxy collection list | grep amazon.aws
@@ -88,5 +92,6 @@ Ansible-vault Life Cycle:-
      ** ansible-playbook site.yml --vault-password-file ~/ansible/vault.pass
 
     
+
 
 
