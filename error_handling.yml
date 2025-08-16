@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: error handling example
+    ansible.builtin.apt:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - openssh
+      - openssl
+    ignore_errors: yes
+  - name: check wether docker is installed or not
+    ansible.builtin.command: docker --version
+    register: docker
+    ignore_errors: yes
+  - name: install docker when privious command failed
+    ansible.builtin.apt:
+      name: docker.io
+      state: present
+      update_cache: yes
+    when: docker.failed
+  - name: Check if a file exists in temp and fail task if it does
+    ansible.builtin.command: ls /tmp/somefile
+    register: file_check
+    failed_when:
+      - file_check.rc == 0
+      - '"No such " not in file_check.stderr'

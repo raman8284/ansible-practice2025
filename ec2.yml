@@ -1,0 +1,28 @@
+---
+- name: create ec2 instance
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /home/raman/myenv/bin/python
+
+  tasks:
+    - name: create ec2 instance
+      amazon.aws.ec2_instance:
+        name: "{{ item.name }}"
+        key_name: "2025nv"
+        instance_type: "t2.micro"
+        security_groups: "default"
+        #aws_access_key: "{{ aws_access_key }}"
+        #aws_secret_key: "{{ aws_secret_key }}"
+        network:
+          assign_public_ip: true
+        image_id: "{{ item.image }}"
+        region: "us-east-1"
+        tags:
+          environment: "{{ item.name }}"
+      loop:
+        - { image: "ami-0de716d6197524dd9", name: "managed1" }
+        - { image: "ami-020cba7c55df1f615", name: "managed2" }
+        - { image: "ami-020cba7c55df1f615", name: "managed3" }
