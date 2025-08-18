@@ -1,9 +1,8 @@
----
 galaxy_info:
   role_name: docker
   author: raman8284
-  description: "Ansible role to install and configure Docker"
-  company: "None"
+  description: Install and configure Docker on target hosts
+  company: none
   license: MIT
   min_ansible_version: 2.9
 
@@ -14,8 +13,8 @@ galaxy_info:
         - 8
     - name: Ubuntu
       versions:
-        - 18.04
-        - 20.04
+        - bionic
+        - focal
 
   galaxy_tags:
     - docker
