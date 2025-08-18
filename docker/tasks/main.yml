@@ -1,0 +1,11 @@
+---
+# tasks file for docker
+- name: install docker
+  ansible.builtin.apt:
+    name: docker.io
+    state: present
+- name: start docker service
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true

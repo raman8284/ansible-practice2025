@@ -1,0 +1,79 @@
+---
+- name: Hosting a static website on two different ports
+  hosts: db
+  become: true
+  tasks:
+    - name: install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+    - name: ensure nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: create directory for port 8080
+      file:
+        path: /var/www//html/site1
+        state: directory
+    - name: create directory for port 8081
+      file:
+        path: /var/www/html/site2
+        state: directory
+    - name: copy index.html for port 8080
+      copy:
+        src: index.html
+        dest: /var/www/html/site1/index.html
+    - name: copy index.html for port 8081
+      copy:
+        src: index.html
+        dest: /var/www/html/site2/index.html
+    - name: configure nginx for port 8080
+      copy:
+        dest: /etc/nginx/sites-available/site1.conf
+        content: |
+          server {
+              listen 8080;
+              server_name _;
+
+              root /var/www/html/site1;
+              index index.html;
+
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+          }
+    - name: configure nginx for port 8081
+      copy:
+        dest: /etc/nginx/sites-available/site2.conf
+        content: |
+          server {
+              listen 8081;
+              server_name _;
+
+              root /var/www/html/site2;
+              index index.html;
+
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+          }
+    - name: enable site1 configuration
+      file:
+        src: /etc/nginx/sites-available/site1.conf
+        dest: /etc/nginx/sites-enabled/site1.conf
+        state: link
+    - name: enable site2 configuration
+      file:
+        src: /etc/nginx/sites-available/site2.conf
+        dest: /etc/nginx/sites-enabled/site2.conf
+        state: link
+    - name: remove default nginx configuration
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    - name: restart nginx to apply changes
+      service:
+        name: nginx
+        state: restarted

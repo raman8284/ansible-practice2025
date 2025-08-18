@@ -1,0 +1,21 @@
+---
+- name: hosting static website
+  hosts: web
+  become: true
+  tasks:
+    - name: install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+    - name: running nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: copying index.html file to webservers
+      ansible.builtin.copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
